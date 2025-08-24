@@ -1,0 +1,14 @@
+*.txt
+!CMakeLists.txt
+!README.txt
+
+#Visual Studio
+*.sln
+*.vcxproj
+*.filters
+*.user
+
+build/
+x64/
+fol/
+TextStatistics/
