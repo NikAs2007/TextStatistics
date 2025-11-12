@@ -6,6 +6,8 @@
 #include <vector>
 #include <unordered_map>
 #include <algorithm>
+#include <thread>
+//#include <windows.h>
 using namespace std;
 using namespace std::filesystem;
 //Задачи: добавить ассинхронность, вывод статы в файл
@@ -18,7 +20,9 @@ struct File {
 	int char_count = 0;
 	int word_count = 0;
 	unordered_map<char, int> count_each_char;
+	unordered_map<string, int> count_each_word;
 	vector<pair<char, int>> sorted_counts;
+	vector<pair<string, int>> sorted_word_counts;
 
 	void inf(int ier = 0) {
 		string iers = "";
@@ -56,7 +60,26 @@ struct File {
 		for (auto it = count_each_char.begin(); it != count_each_char.end(); ++it) {
 			sorted_counts.push_back(make_pair(it->first, it->second));
 		}
+
 		sort(sorted_counts.begin(), sorted_counts.end(), [](pair<char, int>& a, pair<char, int>& b) { return a.second > b.second; });
+
+		//Считаем слова
+		for (int i = 0; i < lines.size(); ++i) {
+			int l = 0, r = 0;
+			while (l < lines[i].length() && !isalpha(lines[i][l])) ++l;
+			r = l + 1;
+			while (r < lines[i].length() && isalpha(lines[i][r])) ++r;
+			if (r <= lines[i].length()) {
+				++count_each_word[lines[i].substr(l, r - l)];
+			}
+		}
+
+		for (auto it = count_each_word.begin(); it != count_each_word.end(); ++it) {
+			sorted_word_counts.push_back(make_pair(it->first, it->second));
+		}
+
+		sort(sorted_word_counts.begin(), sorted_word_counts.end(), [](pair<string, int>& a, pair<string, int>& b) { return a.second > b.second; });
+
 		return *this;
 	}
 };
@@ -134,6 +157,8 @@ struct Folder {
 int main()
 {
 	setlocale(LC_ALL, "Ru");
+	//SetConsoleOutputCP(CP_UTF8);
+	//SetConsoleCP(CP_UTF8);
 	string path = "";
 	while (!exists(path) || !is_directory(path)) {
 		cout << "Введите путь(относительный) к папке с файлами .txt для которой нужно вывести статистику: ";
