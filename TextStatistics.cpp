@@ -13,6 +13,7 @@ using namespace std::filesystem;
 //Задачи: добавить ассинхронность, вывод статы в файл
 
 bool flag_count_chars;
+bool flag_count_words;
 
 struct File {
 	vector<string> lines;
@@ -34,6 +35,12 @@ struct File {
 
 		if (flag_count_chars) {
 			for (auto it = sorted_counts.begin(); it != sorted_counts.end(); ++it) {
+				cout << iers << "'" << it->first << "': " << it->second << endl;
+			}
+		}
+
+		if (flag_count_words) {
+			for (auto it = sorted_word_counts.begin(); it != sorted_word_counts.end(); ++it) {
 				cout << iers << "'" << it->first << "': " << it->second << endl;
 			}
 		}
@@ -167,10 +174,13 @@ int main()
 		else if (!is_directory(path)) cout << "Это не папка!" << endl;
 	}
 	string flag = "";
-	cout << "Флаги:\n1 - подсчёт отдельных символов\n2 - только основная статистика\nФлаг: ";
+	cout << "Флаги:\n1 - только основная статистика\n2 - подсчёт отдельных символов\n3 - подсчёт слов\nФлаг: ";
 	getline(cin, flag);
-	if (flag == "1") flag_count_chars = true;
+	if (flag == "2") flag_count_chars = true;
 	else flag_count_chars = false;
+	if (flag == "3") flag_count_words = true;
+	else flag_count_words = false;
+	
 	Folder fol;
 	fol.logic(path);
 	fol.inf();
