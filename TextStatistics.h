@@ -41,6 +41,8 @@ struct Folder {
 	int lines_count = 0;
 	unordered_map<char, int> count_each_char;
 	vector<pair<char, int>> sorted_counts;
+	unordered_map<string, int> count_each_word;
+	vector<pair<string, int>> sorted_words_counts;
 
 	void inf(Flags flags, int ier = 0);
 	Folder logic(path path);

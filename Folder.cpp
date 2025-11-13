@@ -7,11 +7,22 @@ void Folder::inf(Flags flags, int ier) {
 	cout << iers << "Количество строк: " << lines_count << endl;
 	cout << iers << "Количество символов: " << char_count << endl;
 	cout << iers << "Количество слов: " << word_count << endl;
+	cout << endl;
 
 	if (flags.inf_chars) {
+		cout << iers << "Список символов:\n";
 		for (auto it = sorted_counts.begin(); it != sorted_counts.end(); ++it) {
 			cout << iers << "'" << it->first << "': " << it->second << endl;
 		}
+		cout << "\n";
+	}
+
+	if (flags.inf_words) {
+		cout << iers << "Список слов:\n";
+		for (auto it = sorted_words_counts.begin(); it != sorted_words_counts.end(); ++it) {
+			cout << iers << "'" << it->first << "': " << it->second << endl;
+		}
+		cout << "\n";
 	}
 
 	for (auto& fold : all_folders) {
@@ -40,6 +51,15 @@ Folder Folder::logic(path path) {
 				sorted_counts.push_back(make_pair(it->first, it->second));
 			}
 			sort(sorted_counts.begin(), sorted_counts.end(), [](pair<char, int>& a, pair<char, int>& b) {return a.second > b.second; });
+
+			for (auto it = all_files.back().count_each_word.begin(); it != all_files.back().count_each_word.end(); ++it) {
+				count_each_word[it->first] += it->second;
+			}
+			sorted_words_counts = vector<pair<string, int>>();
+			for (auto it = count_each_word.begin(); it != count_each_word.end(); ++it) {
+				sorted_words_counts.push_back(make_pair(it->first, it->second));
+			}
+			sort(sorted_words_counts.begin(), sorted_words_counts.end(), [](pair<string, int>& a, pair<string, int>& b) {return a.second > b.second; });
 		}
 		else if (is_directory(entry.path())) {
 			all_folders.push_back(Folder().logic(entry.path()));
@@ -54,7 +74,15 @@ Folder Folder::logic(path path) {
 				sorted_counts.push_back(make_pair(it->first, it->second));
 			}
 			sort(sorted_counts.begin(), sorted_counts.end(), [](pair<char, int>& a, pair<char, int>& b) {return a.second > b.second; });
-			//тут ост
+			
+			for (auto it = all_folders.back().count_each_word.begin(); it != all_folders.back().count_each_word.end(); ++it) {
+				count_each_word[it->first] += it->second;
+			}
+			sorted_words_counts = vector<pair<string, int>>();
+			for (auto it = count_each_word.begin(); it != count_each_word.end(); ++it) {
+				sorted_words_counts.push_back(make_pair(it->first, it->second));
+			}
+			sort(sorted_words_counts.begin(), sorted_words_counts.end(), [](pair<string, int>& a, pair<string, int>& b) {return a.second > b.second; });
 		}
 	}
 	return *this;

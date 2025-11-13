@@ -8,17 +8,22 @@ void File::inf(Flags flags, int ier) {
 	cout << iers << "Количество строк: " << lines.size() << endl;
 	cout << iers << "Количество символов: " << char_count << endl;
 	cout << iers << "Количество слов: " << word_count << endl;
+	cout << endl;
 
 	if (flags.inf_chars) {
+		cout << iers << "Список символов:\n";
 		for (auto it = sorted_counts.begin(); it != sorted_counts.end(); ++it) {
 			cout << iers << "'" << it->first << "': " << it->second << endl;
 		}
+		cout << "\n";
 	}
 
 	if (flags.inf_words) {
+		cout << iers << "Список слов:\n";
 		for (auto it = sorted_word_counts.begin(); it != sorted_word_counts.end(); ++it) {
 			cout << iers << "'" << it->first << "': " << it->second << endl;
 		}
+		cout << "\n";
 	}
 
 	cout << endl;

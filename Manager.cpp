@@ -33,11 +33,13 @@ void Manager::asking() {
 				if (is_directory(path)) {
 					Folder fol;
 					fol.logic(path);
+					cout << endl;
 					fol.inf(flags);
 				}
 				else {
 					File fil;
 					fil.logic(path);
+					cout << endl;
 					fil.inf(flags);
 				}
 			}
