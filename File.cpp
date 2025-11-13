@@ -26,7 +26,7 @@ void File::inf(Flags flags, int ier) {
 		cout << "\n";
 	}
 
-	cout << endl;
+	if (flags.inf_chars || flags.inf_words) cout << endl;
 }
 
 File File::logic(path path) {
@@ -38,12 +38,10 @@ File File::logic(path path) {
 		char_count += line.length();
 	}
 	file.close();
-	for (int i = 0; i < lines.size(); i++) {
-		for (int j = 0; j < lines[i].length() - 1; j++) {
-			count_each_char[lines[i][j]]++;
-			if (isalpha(lines[i][j]) && !isalpha(lines[i][j + 1])) {
-				word_count++;
-			}
+
+	for (string st : lines) {
+		for (char ch : st) {
+			++count_each_char[ch];
 		}
 	}
 
@@ -61,6 +59,7 @@ File File::logic(path path) {
 		while (r < lines[i].length() && isalpha(lines[i][r])) ++r;
 		if (r <= lines[i].length()) {
 			++count_each_word[lines[i].substr(l, r - l)];
+			++word_count;
 		}
 	}
 
