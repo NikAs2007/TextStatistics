@@ -3,10 +3,10 @@
 void Folder::inf(Flags flags, int ier) {
 	string iers = "";
 	for (int i = 0; i < ier; ++i) iers += "    ";
-	cout << iers << "Folder name: " << path_to_folder.filename() << endl;
-	cout << iers << "Lines: " << lines_count << endl;
-	cout << iers << "Chars: " << char_count << endl;
-	cout << iers << "Words: " << word_count << endl;
+	cout << iers << "Папка: " << path_to_folder.filename() << endl;
+	cout << iers << "Количество строк: " << lines_count << endl;
+	cout << iers << "Количество символов: " << char_count << endl;
+	cout << iers << "Количество слов: " << word_count << endl;
 
 	if (flags.inf_chars) {
 		for (auto it = sorted_counts.begin(); it != sorted_counts.end(); ++it) {
