@@ -25,14 +25,14 @@ void Folder::inf(Flags flags, int ier) {
 		cout << "\n";
 	}
 
+	if (flags.inf_chars || flags.inf_words) cout << endl;
+
 	for (auto& fold : all_folders) {
 		fold.inf(flags, ier + 1);
 	}
 	for (auto& file : all_files) {
 		file.inf(flags, ier + 1);
 	}
-
-	cout << endl;
 }
 
 Folder Folder::logic(path path) {
