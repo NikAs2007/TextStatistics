@@ -24,6 +24,11 @@ void Manager::asking() {
 			string path;
 			cout << "¬ведите путь к файлу/папке: ";
 			getline(cin, path);
+			string d = "";
+			for (int i = 0; i < path.length(); ++i) {
+				if (path[i] != '\"') d += path[i];
+			}
+			path = d;
 			if (exists(path)) {
 				if (is_directory(path)) {
 					Folder fol;

@@ -20,6 +20,8 @@ void Folder::inf(Flags flags, int ier) {
 	for (auto& file : all_files) {
 		file.inf(flags, ier + 1);
 	}
+
+	cout << endl;
 }
 
 Folder Folder::logic(path path) {

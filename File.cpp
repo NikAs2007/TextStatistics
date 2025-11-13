@@ -20,6 +20,8 @@ void File::inf(Flags flags, int ier) {
 			cout << iers << "'" << it->first << "': " << it->second << endl;
 		}
 	}
+
+	cout << endl;
 }
 
 File File::logic(path path) {
