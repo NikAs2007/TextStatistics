@@ -17,18 +17,14 @@ void Manager::flags_asking() {
 void Manager::asking() {
 	while (!stop) {
 		//Добавить обработку кавычек
-		string path;
-		cout << "Введите путь к файлу/папке (Закрыть программу - \"-\"): ";
-		getline(cin, path);
-		if (path == "-") {
-			stop = true;
-			return;
-		}
-		if (exists(path)) {
-			cout << "Вывести статистику [1]\nИзменить флаги [2]\nВведите число: ";
-			string move;
-			getline(cin, move);
-			if (move == "1") {
+		cout << "Вывести статистику [1]\nИзменить флаги [2]\nВведите число (Закрыть программу - \"-\"): ";
+		string move;
+		getline(cin, move);
+		if (move == "1") {
+			string path;
+			cout << "Введите путь к файлу/папке: ";
+			getline(cin, path);
+			if (exists(path)) {
 				if (is_directory(path)) {
 					Folder fol;
 					fol.logic(path);
@@ -40,15 +36,20 @@ void Manager::asking() {
 					fil.inf(flags);
 				}
 			}
-			else if (move == "2") {
-				flags_asking();
-			}
 			else {
-				cout << "Такой команды нет!\n\n";
+				cout << "Неправильный путь!\n\n";
 			}
+		}
+		else if (move == "2") {
+			flags_asking();
+		}
+		else if (move == "-") {
+			stop = true;
+			return;
 		}
 		else {
-			cout << "Неправильный путь!\n\n";
+			cout << "Такой команды нет!\n\n";
 		}
+
 	}
 }
