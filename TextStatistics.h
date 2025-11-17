@@ -45,6 +45,13 @@ struct Folder {
 	unordered_map<string, int> count_each_word;
 	vector<pair<string, int>> sorted_words_counts;
 
+	ThreadPool thread_pool;
+
+	Folder();
+	Folder(const Folder& fol);
+	void operator=(const Folder& fol);
+	//Folder(int n = thread::hardware_concurrency());
+
 	void inf(Flags flags, int ier = 0);
 	Folder logic(path path);
 };
