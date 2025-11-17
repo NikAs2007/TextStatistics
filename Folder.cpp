@@ -40,6 +40,9 @@ Folder Folder::logic(path path) {
 	for (auto& entry : directory_iterator(path_to_folder)) {
 		if (is_regular_file(entry.path()) && entry.path().extension() == ".txt") {
 			all_files.push_back(File().logic(entry.path()));
+
+			//thread_pool.emplace([this](){ all_files.push_back(File().logic(entry.path())); })
+
 			this->char_count += all_files.back().char_count;
 			this->word_count += all_files.back().word_count;
 			this->lines_count += all_files.back().lines.size();
